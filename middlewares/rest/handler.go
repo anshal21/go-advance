@@ -12,7 +12,9 @@ import (
 func RegisterHandlers() {
 	http.HandleFunc("/", middlewares.WithTimer(HelloWorldHandler))
 
-	http.HandleFunc("/random", GetRandomNumber)
+	http.HandleFunc("/random", middlewares.WithAuthorization(map[string]struct{}{
+		"admin": {},
+	}, GetRandomNumber))
 
 	http.ListenAndServe(":8080", nil)
 }

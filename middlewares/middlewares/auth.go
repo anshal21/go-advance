@@ -1,12 +1,14 @@
 package middlewares
 
-import "net/http"
+import (
+	"net/http"
+)
 
 func WithAuthorization(whitelistedGroups map[string]struct{}, handler HTTPHandler) HTTPHandler {
 	return func(res http.ResponseWriter, req *http.Request) {
-		userGroups, ok := req.Header["user-group"]
+		userGroups, ok := req.Header["User-Group"]
 		if !ok {
-			res.Write([]byte("missing required `user-group` header in the request"))
+			res.Write([]byte("missing required `User-Group` header in the request"))
 			return
 		}
 
