@@ -2,10 +2,12 @@ package rest
 
 import (
 	"net/http"
+
+	"github.com/anshal21/go-advance/middlewares/middlewares"
 )
 
 func RegisterHandlers() {
-	http.HandleFunc("/", HelloWorldHandler)
+	http.HandleFunc("/", middlewares.WithTimer(HelloWorldHandler))
 
 	http.ListenAndServe(":8080", nil)
 }
