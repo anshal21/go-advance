@@ -10,7 +10,10 @@ import (
 )
 
 func RegisterHandlers() {
-	http.HandleFunc("/", middlewares.WithTimer(HelloWorldHandler))
+	http.HandleFunc("/", middlewares.WithTimer(middlewares.WithAuthorization(map[string]struct{}{
+		"user":  {},
+		"admin": {},
+	}, HelloWorldHandler)))
 
 	http.HandleFunc("/random", middlewares.WithAuthorization(map[string]struct{}{
 		"admin": {},
